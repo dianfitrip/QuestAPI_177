@@ -93,7 +93,7 @@ fun HomeStatus(
 fun OnLoading(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.loading_img),
+        painter = painterResource(R.drawable.loading_icon),
         contentDescription = stringResource(R.string.loading)
     )
 }
