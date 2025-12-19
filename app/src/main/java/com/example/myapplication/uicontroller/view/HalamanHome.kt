@@ -112,3 +112,25 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun SiswaLayout(
+    siswa: List<DataSiswa>,
+    modifier: Modifier = Modifier,
+    onSiswaClick: (DataSiswa) -> Unit = {}
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_small)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+    ) {
+        items(items = siswa, key = { it.id }) { siswa ->
+            SiswaCard(
+                siswa = siswa,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onSiswaClick(siswa) }
+            )
+        }
+    }
+}
+
