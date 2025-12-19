@@ -1,4 +1,4 @@
-package com.example.myapplication.uicontroller.view
+package com.example.myapplication.view
 
 
 
