@@ -66,3 +66,26 @@ fun HomeScreen(
     }
 }
 
+@Composable
+fun HomeStatus(
+    statusUiSiswa: StatusUiSiswa,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    when (statusUiSiswa) {
+        is StatusUiSiswa.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is StatusUiSiswa.Success ->
+            if (statusUiSiswa.siswa.isEmpty()) {
+                return Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Tidak ada data siswa")
+                }
+            } else {
+                SiswaLayout(
+                    siswa = statusUiSiswa.siswa,
+                    modifier = modifier.fillMaxWidth()
+                )
+            }
+        is StatusUiSiswa.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
