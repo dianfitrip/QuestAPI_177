@@ -4,20 +4,28 @@ package com.example.myapplication.uicontroller
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.myapplication.uicontroller.route.DestinasiDetail
+import com.example.myapplication.uicontroller.route.DestinasiEdit
 import com.example.myapplication.uicontroller.route.DestinasiEntry
 import com.example.myapplication.uicontroller.route.DestinasiHome
+import com.example.myapplication.view.DetailSiswaScreen
+import com.example.myapplication.view.EditSiswaScreen
 import com.example.myapplication.view.EntrySiswaScreen
 import com.example.myapplication.view.HomeScreen
 
 @Composable
-fun DataSiswaApp(navController: NavHostController = rememberNavController(),
-                 modifier: Modifier){
-    HostNavigasi(navController = navController)
+fun DataSiswaApp(
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier
+)
+{
+   HostNavigasi(navController = navController)
 }
-
 @Composable
 fun HostNavigasi(
     navController: NavHostController,
@@ -25,8 +33,14 @@ fun HostNavigasi(
 ){
     NavHost(navController = navController, startDestination = DestinasiHome.route,
         modifier = modifier ){
+        // Halaman Home
         composable(DestinasiHome.route) {
-            HomeScreen(navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },)
+            HomeScreen(
+                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+                navigateToItemUpdate = { id ->
+                    navController.navigate("${DestinasiDetail.route}/$id")
+                }
+            )
         }
         composable(DestinasiEntry.route){
             EntrySiswaScreen(navigateBack = { navController.navigate(DestinasiHome

@@ -15,15 +15,13 @@ interface ContainerApp {
 }
 
 class DefaultContainerApp : ContainerApp {
-    // Gunakan 10.0.2.2 jika menggunakan Emulator Android bawaan
-    // Gunakan IP Laptop jika menggunakan HP Fisik (contoh: 192.168.1.x)
-    private val baseUrl = "http://10.0.2.2/umyTI/"
+    private val baseUrl = "http://10.195.199.29/umyTI/"
 
-    private val logging = HttpLoggingInterceptor().apply {
+    val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    private val klien = OkHttpClient.Builder()
+    val klien = OkHttpClient.Builder()
         .addInterceptor(logging)
         .build()
 
@@ -47,8 +45,6 @@ class DefaultContainerApp : ContainerApp {
         JaringanRepositoryDataSiswa(retrofitService)
     }
 }
-
-
 
 class AplikasiDataSiswa : Application() {
     lateinit var container: ContainerApp

@@ -12,13 +12,13 @@ import retrofit2.http.Query
 // Interface untuk mendefinisikan endpoint API
 interface ServiceApiSiswa {
 
-    @GET("bacaTeman.php")
+    @GET("bacateman.php")
     suspend fun getSiswa(): List<DataSiswa>
 
     @POST("insertTM.php")
     suspend fun postSiswa(@Body dataSiswa: DataSiswa): Response<Void>
 
-    @GET("bacaTeman.php/{id}")
+    @GET("bacateman.php/{id}")
     suspend fun getSatuSiswa(@Query("id") id: Int): DataSiswa
 
     @PUT("editTM.php/{id}")
