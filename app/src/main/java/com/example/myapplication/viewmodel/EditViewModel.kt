@@ -23,5 +23,11 @@ class EditViewModel(
                 println("Error saat ambil data siswa: ${e.message}")
             }
         }
+        fun updateUiState(detailSiswa: DetailSiswa) {
+            uiStateSiswa = UIStateSiswa(
+                detailSiswa = detailSiswa,
+                isEntryValid = validasiInput(detailSiswa)
+            )
+        }
     }
 }
