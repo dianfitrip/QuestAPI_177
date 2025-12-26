@@ -30,6 +30,7 @@ import com.example.myapplication.viewmodel.provider.PenyediaViewModel
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
@@ -58,6 +59,7 @@ fun HomeScreen(
     ) { innerPadding ->
         HomeStatus(
             statusUiSiswa = viewModel.listSiswa,
+            onSiswaClick = navigateToItemUpdate,
             retryAction = { viewModel.loadSiswa() },
             modifier = modifier
                 .padding(innerPadding)
@@ -69,28 +71,34 @@ fun HomeScreen(
 @Composable
 fun HomeStatus(
     statusUiSiswa: StatusUiSiswa,
+    onSiswaClick: (Int) -> Unit,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when (statusUiSiswa) {
-        is StatusUiSiswa.Loading -> OnLoading(modifier = modifier.fillMaxSize())
-        is StatusUiSiswa.Success ->
-            if (statusUiSiswa.siswa.isEmpty()) {
-                return Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Tidak ada data siswa")
-                }
-            } else {
-                SiswaLayout(
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+        )
+        {
+            when (statusUiSiswa) {
+                is StatusUiSiswa.Loading -> LoadingScreen()
+                is StatusUiSiswa.Success -> DaftarSiswa(
                     siswa = statusUiSiswa.siswa,
-                    modifier = modifier.fillMaxWidth()
+                    onSiswaClick = { onSiswaClick(it.id) }
+                )
+
+                is StatusUiSiswa.Error -> ErrorScreen(
+                    retryAction,
+                    modifier = modifier.fillMaxSize()
                 )
             }
-        is StatusUiSiswa.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
-    }
+        }
+
 }
 
 @Composable
-fun OnLoading(modifier: Modifier = Modifier) {
+fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp),
         painter = painterResource(R.drawable.loading_icon),
@@ -99,7 +107,7 @@ fun OnLoading(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -113,7 +121,7 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SiswaLayout(
+fun DaftarSiswa(
     siswa: List<DataSiswa>,
     modifier: Modifier = Modifier,
     onSiswaClick: (DataSiswa) -> Unit = {}
