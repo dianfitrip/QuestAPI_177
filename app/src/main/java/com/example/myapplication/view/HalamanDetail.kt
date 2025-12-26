@@ -37,5 +37,22 @@ fun DetailSiswaScreen(
                 )
             }
         },
-    )
+        modifier = modifier
+    ) { innerPadding ->
+        val coroutineScope = rememberCoroutineScope()
+
+        BodyDetailDataSiswa(
+            statusUIDetail = viewModel.statusUIDetail, // Sudah disesuaikan
+            onDelete = {
+                coroutineScope.launch {
+                    // Di ViewModel namanya hapusSatuSiswa, bukan hapusStatusSiswa
+                    viewModel.hapusSatuSiswa()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+        )
+    }
 }
