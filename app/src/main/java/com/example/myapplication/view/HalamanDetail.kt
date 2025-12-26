@@ -62,9 +62,29 @@ private fun BodyDetailDataSiswa(
     statusUIDetail: StatusUIDetail,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
-){
+) {
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
-    )
+    ) {
+        var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
+
+        when (statusUIDetail) {
+            is StatusUIDetail.Success -> {
+                DetailDataSiswa(
+                    siswa = statusUIDetail.satusiswa, // Mengambil 'satusiswa' dari data class Success
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            is StatusUIDetail.Loading -> {
+                Text(text = "Memuat data...", modifier = Modifier.padding(16.dp))
+            }
+
+            is StatusUIDetail.Error -> {
+                Text(text = "Gagal memuat data", modifier = Modifier.padding(16.dp))
+            }
+        }
+
+    }
 }
