@@ -1,0 +1,27 @@
+package com.example.myapplication.viewmodel
+
+
+
+
+
+class EditViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val repositoryDataSiswa: RepositoryDataSiswa
+) : ViewModel() {
+    var uiStateSiswa by mutableStateOf(UIStateSiswa())
+        private set
+
+    private val idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
+
+    init {
+        viewModelScope.launch {
+            try {
+                val dataSiswa = repositoryDataSiswa.getSatuSiswa(idSiswa)
+                uiStateSiswa = dataSiswa.toUiStateSiswa(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                println("Error saat ambil data siswa: ${e.message}")
+            }
+        }
+    }
+}
