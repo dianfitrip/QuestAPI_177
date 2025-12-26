@@ -1,6 +1,18 @@
 package com.example.myapplication.viewmodel
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.modeldata.DataSiswa
+import com.example.myapplication.repository.RepositoryDataSiswa
+import com.example.myapplication.uicontroller.route.DestinasiDetail
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import retrofit2.Response
+import java.io.IOException
 
 
 sealed interface StatusUIDetail {
