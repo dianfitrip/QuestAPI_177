@@ -85,6 +85,13 @@ private fun BodyDetailDataSiswa(
                 Text(text = "Gagal memuat data", modifier = Modifier.padding(16.dp))
             }
         }
+        OutlinedButton(
+            onClick = { deleteConfirmationRequired = true },
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.delete))
+        }
 
     }
 }
