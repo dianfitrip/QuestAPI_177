@@ -1,6 +1,19 @@
 package com.example.myapplication.viewmodel
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import com.example.myapplication.modeldata.DetailSiswa
+import com.example.myapplication.modeldata.UIStateSiswa
+import com.example.myapplication.modeldata.toDataSiswa
+import com.example.myapplication.modeldata.toUiStateSiswa
+import com.example.myapplication.repository.RepositoryDataSiswa
+import com.example.myapplication.uicontroller.route.DestinasiDetail
+import retrofit2.Response
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 
 
